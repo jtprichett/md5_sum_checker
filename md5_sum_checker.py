@@ -120,7 +120,7 @@ def main(argv):
         opts, args = getopt.getopt(argv, "h:i:t:", ["help", "idirectory=", "optiontype="])
     except:
         print 'there was an error getting the options\r\n'
-
+        sys.exit(1)
     #Make sure there are options
     if opts:
         for opt, arg in opts:
@@ -133,7 +133,7 @@ def main(argv):
                 option_type = arg
     else:
         print 'There were no options to check\r\n'
-
+        sys.exit(1)
     #Check the option type for the type of checksum list to generate
     if input_directory != '' and option_type == 'master':
         print 'Generating checksum list for master...\r\n'
@@ -144,7 +144,7 @@ def main(argv):
         try:
             print 'Generating checksum list for basic...\r\n'
             generate_checksum_list(input_directory, option_type)
-            print 'Checksum list for basic complete!'
+            print 'Checksum list for basic complete!\r\n'
         except:
             print 'There was an issue with generating the checksum list for master\r\n'
             sys.exit(2)
@@ -154,9 +154,10 @@ def main(argv):
             print 'Checksum check complete check the check_lists directory'
         except:
             print 'Could not compare the two files for some reason\r\n'
+            sys.exit(1)
     else:
         print 'The option type must be either master or basic\r\n'
-
+        sys.exit(1)
 
 if __name__ == '__main__':
     main(sys.argv[1:])
